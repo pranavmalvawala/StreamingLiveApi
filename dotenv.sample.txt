@@ -3,7 +3,7 @@ NODE_ENV=dev
 APP_NAME=StreamingLive
 
 # Node.js server configuration
-SERVER_PORT=8090
+SERVER_PORT=8200
 
 # MySql configuration
 DB_HOST=localhost
