@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS `settings`;
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `churchId` int(11) DEFAULT NULL,
+  `homePageUrl` varchar(255) DEFAULT NULL,
+  `logoUrl` varchar(255) DEFAULT NULL,
+  `primaryColor` varchar(45) DEFAULT NULL,
+  `contrastColor` varchar(45) DEFAULT NULL,
+  `registrationDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
