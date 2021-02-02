@@ -49,45 +49,19 @@ export class CustomSettingController extends StreamingLiveBaseController {
     private async saveLogo(subDomain: string, setting: Setting) {
         const base64 = setting.logoUrl.split(',')[1];
         const key = "data/" + subDomain + "/logo.png";
-        await AwsHelper.S3Upload(key, "image/png", Buffer.from(base64, 'base64'))
+        if (process.env.STORAGE_LOCATION === "S3") await AwsHelper.S3Upload(key, "image/png", Buffer.from(base64, 'base64'))
+        else await this.repositories.setting.save(setting);
     }
 
     @httpPost("/publish")
     public async publish(req: express.Request<{}, {}, []>, res: express.Response): Promise<any> {
         return this.actionWrapper(req, res, async (au) => {
-            await SettingsHelper.publish(au.churchId, this.repositories, this.baseRepositories);
-            return this.json([], 200);
+            if (process.env.STORAGE_LOCATION !== "S3") return ({ error: "This API is not configured to publish to disk" });
+            else {
+                await SettingsHelper.publish(au.churchId, this.repositories, this.baseRepositories);
+                return this.json([], 200);
+            }
         });
     }
-
-
-
-    /*
-    @httpGet("/tmpPublish/:key")
-    public async tmpPublish(@requestParam("key") key: string, req: express.Request<{}, {}, []>, res: express.Response): Promise<any> {
-        try {
-            const settings: Setting = await this.repositories.setting.loadByKey(key);
-            let tabs: Tab[] = null;
-            let links: Link[] = null;
-            let services: Service[] = null;
-
-            let promises: Promise<any>[] = [];
-            promises.push(this.repositories.tab.loadAll(settings.churchId).then(d => tabs = d));
-            promises.push(this.repositories.link.loadAll(settings.churchId).then(d => links = d));
-            promises.push(this.repositories.service.loadAll(settings.churchId).then(d => services = d));
-            await Promise.all(promises);
-
-            promises = [];
-            promises.push(this.publishData(settings, tabs, links, services));
-            promises.push(this.publishCss(settings));
-            await Promise.all(promises);
-
-            return this.json([], 200);
-        } catch (e) {
-            this.logger.logger.error(e);
-            return this.internalServerError(e);
-        }
-    }
-*/
 
 }

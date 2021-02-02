@@ -9,9 +9,11 @@ export class SubDomainHelper {
         let result = "";
         if (this.subDomains[churchId] !== undefined) result = this.subDomains[churchId];
         else {
-            const apiUrl = process.env.ACCESS_MANAGEMENT_API;
+            const apiUrl = process.env.ACCESS_API;
             const url = apiUrl + "/churches/lookup/?id=" + churchId.toString();
+            console.log(url);
             const json: any = await got.get(url).json();
+            console.log(json);
             result = json.subDomain;
             this.subDomains[churchId] = result;
             this.churchIds[result] = churchId;
@@ -23,7 +25,7 @@ export class SubDomainHelper {
         let result = 0;
         if (this.churchIds[subDomain] !== undefined) result = this.churchIds[subDomain];
         else {
-            const apiUrl = process.env.ACCESS_MANAGEMENT_API;
+            const apiUrl = process.env.ACCESS_API;
             const url = apiUrl + "/churches/lookup/?subDomain=" + subDomain;
             const json: any = await got.get(url).json();
             result = parseInt(json.id, 0);

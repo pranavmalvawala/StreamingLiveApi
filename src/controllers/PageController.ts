@@ -10,15 +10,18 @@ export class PageControllerExtended extends BasePageController {
     @httpGet("/write/:id")
     public async writeToDisk(@requestParam("id") id: number, req: express.Request, res: express.Response): Promise<any> {
         return this.actionWrapper(req, res, async (au) => {
-            const page = await this.baseRepositories.page.loadById(id, au.churchId);
-            if (page.content !== undefined) {
-                const subDomain = await SubDomainHelper.get(au.churchId);
-                const wrappedContent = this.wrapContent(subDomain, page.content);
-                const path = "data/" + subDomain + '/page' + page.id + '.html';
-                const buffer = Buffer.from(wrappedContent, 'binary');
-                await AwsHelper.S3Upload(path, "text/html", buffer)
+            if (process.env.STORAGE_LOCATION !== "S3") return this.denyAccess(["This API is not configured to publish to disk"]);
+            else {
+                const page = await this.baseRepositories.page.loadById(id, au.churchId);
+                if (page.content !== undefined) {
+                    const subDomain = await SubDomainHelper.get(au.churchId);
+                    const wrappedContent = this.wrapContent(subDomain, page.content);
+                    const path = "data/" + subDomain + '/page' + page.id + '.html';
+                    const buffer = Buffer.from(wrappedContent, 'binary');
+                    await AwsHelper.S3Upload(path, "text/html", buffer)
+                }
+                return page;
             }
-            return page;
         });
     }
 
