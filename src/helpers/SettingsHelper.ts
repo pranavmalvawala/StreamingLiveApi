@@ -14,21 +14,26 @@ export class SettingsHelper {
         let links: Link[] = null;
         let services: Service[] = null;
 
+        console.log("SUBDOMAIN");
         const subDomain = await SubDomainHelper.get(churchId);
 
+        console.log("SAVING")
         let promises: Promise<any>[] = [];
         promises.push(repositories.setting.loadAll(churchId).then(d => settings = d[0]));
         promises.push(baseRepositories.link.loadByCategory(churchId, "tab").then(d => tabs = d));
         promises.push(baseRepositories.link.loadByCategory(churchId, "link").then(d => links = d));
         promises.push(repositories.service.loadAll(churchId).then(d => services = d));
         await Promise.all(promises);
+        console.log("SAVED")
 
-        promises = [];
-        promises.push(this.publishData(subDomain, settings, tabs, links, services));
-        promises.push(this.publishCss(subDomain, settings));
-        LoggingHelper.getCurrent().info(JSON.stringify(promises));
-        await Promise.all(promises);
-
+        if (process.env.STORAGE_LOCATION === "S3") {
+            promises = [];
+            promises.push(this.publishData(subDomain, settings, tabs, links, services));
+            promises.push(this.publishCss(subDomain, settings));
+            LoggingHelper.getCurrent().info(JSON.stringify(promises));
+            await Promise.all(promises);
+        }
+        console.log("S3 Done")
     }
 
 

@@ -11,7 +11,9 @@ export class SubDomainHelper {
         else {
             const apiUrl = process.env.ACCESS_API;
             const url = apiUrl + "/churches/lookup/?id=" + churchId.toString();
+            console.log(url);
             const json: any = await got.get(url).json();
+            console.log(json);
             result = json.subDomain;
             this.subDomains[churchId] = result;
             this.churchIds[result] = churchId;
