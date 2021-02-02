@@ -9,7 +9,7 @@ export class SubDomainHelper {
         let result = "";
         if (this.subDomains[churchId] !== undefined) result = this.subDomains[churchId];
         else {
-            const apiUrl = process.env.ACCESS_MANAGEMENT_API;
+            const apiUrl = process.env.ACCESS_API;
             const url = apiUrl + "/churches/lookup/?id=" + churchId.toString();
             const json: any = await got.get(url).json();
             result = json.subDomain;
@@ -23,7 +23,7 @@ export class SubDomainHelper {
         let result = 0;
         if (this.churchIds[subDomain] !== undefined) result = this.churchIds[subDomain];
         else {
-            const apiUrl = process.env.ACCESS_MANAGEMENT_API;
+            const apiUrl = process.env.ACCESS_API;
             const url = apiUrl + "/churches/lookup/?subDomain=" + subDomain;
             const json: any = await got.get(url).json();
             result = parseInt(json.id, 0);

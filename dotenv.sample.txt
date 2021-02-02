@@ -13,5 +13,7 @@ DB_PASSWORD=
 
 JWT_SECRET_KEY=this is a test key that is a sentence
 
-#Access Management Api
-ACCESS_MANAGEMENT_API=https://accessapi.staging.churchapps.org
+ACCESS_API=https://accessapi.staging.churchapps.org
+
+#DB or S3
+STORAGE_LOCATION=DB
