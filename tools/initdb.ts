@@ -8,8 +8,8 @@ const init = async () => {
   console.log("Connecting");
   Pool.initPool();
   await DBCreator.init(["Links", "Pages"])
-  await DBCreator.runScript("Services", "./dbScripts/services.mysql");
-  await DBCreator.runScript("Settings", "./dbScripts/settings.mysql");
+  await DBCreator.runScript("Services", "./dbScripts/services.mysql", false);
+  await DBCreator.runScript("Settings", "./dbScripts/settings.mysql", false);
 };
 
 init()
