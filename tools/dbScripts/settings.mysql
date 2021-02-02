@@ -4,7 +4,7 @@ CREATE TABLE `settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `churchId` int(11) DEFAULT NULL,
   `homePageUrl` varchar(255) DEFAULT NULL,
-  `logoUrl` varchar(255) DEFAULT NULL,
+  `logoUrl` TEXT DEFAULT NULL,
   `primaryColor` varchar(45) DEFAULT NULL,
   `contrastColor` varchar(45) DEFAULT NULL,
   `registrationDate` datetime DEFAULT NULL,
