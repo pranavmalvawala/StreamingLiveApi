@@ -17,10 +17,11 @@ export class SettingRepository {
     }
 
     public async create(setting: Setting) {
+        setting.id = UniqueIdHelper.shortId();
         return DB.query(
-            "INSERT INTO settings (churchId, homePageUrl, logoUrl, primaryColor, contrastColor, registrationDate) VALUES (?, ?, ?, ?, ?, NOW());",
-            [setting.churchId, setting.homePageUrl, setting.logoUrl, setting.primaryColor, setting.contrastColor]
-        ).then((row: any) => { setting.id = row.insertId; return setting; });
+            "INSERT INTO settings (id, churchId, homePageUrl, logoUrl, primaryColor, contrastColor, registrationDate) VALUES (?, ?, ?, ?, ?, ?, NOW());",
+            [setting.id, setting.churchId, setting.homePageUrl, setting.logoUrl, setting.primaryColor, setting.contrastColor]
+        ).then(() => { return setting; });
     }
 
     public async update(setting: Setting) {

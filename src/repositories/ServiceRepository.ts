@@ -9,10 +9,11 @@ export class ServiceRepository {
     }
 
     public async create(service: Service) {
+        service.id = UniqueIdHelper.shortId();
         return DB.query(
             "INSERT INTO services (id, churchId, serviceTime, earlyStart, duration, chatBefore, chatAfter, provider, providerKey, videoUrl, timezoneOffset, recurring, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-            [UniqueIdHelper.shortId(), service.churchId, service.serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label]
-        ).then((row: any) => { service.id = row.insertId; return service; });
+            [service.id, service.churchId, service.serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label]
+        ).then(() => { return service; });
     }
 
     public async update(service: Service) {
