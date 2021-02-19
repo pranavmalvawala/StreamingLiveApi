@@ -18,7 +18,7 @@ export class ServiceController extends StreamingLiveBaseController {
     }
 
     @httpDelete("/:id")
-    public async delete(@requestParam("id") id: number, req: express.Request, res: express.Response): Promise<void> {
+    public async delete(@requestParam("id") id: string, req: express.Request, res: express.Response): Promise<void> {
         return this.actionWrapper(req, res, async (au) => {
             if (!au.checkAccess(Permissions.services.edit)) return this.json({}, 401);
             else {

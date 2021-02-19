@@ -1,7 +1,7 @@
 
 export class Setting {
-    id?: number;
-    churchId: number;
+    id?: string;
+    churchId: string;
     homePageUrl: string;
     logoUrl: string;
     primaryColor: string;

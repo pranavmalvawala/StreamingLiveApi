@@ -1,7 +1,7 @@
 
 export class Service {
-    id?: number;
-    churchId: number;
+    id?: string;
+    churchId: string;
     serviceTime: Date;
     earlyStart: number;
     duration: number;

@@ -1,18 +1,19 @@
 import { DB } from "../apiBase/db";
 import { Setting } from "../models";
+import { UniqueIdHelper } from "../helpers";
 
 export class SettingRepository {
 
-    public async loadAll(churchId: number) {
+    public async loadAll(churchId: string) {
         return DB.query("SELECT * FROM settings WHERE churchId=?", [churchId]);
     }
 
-    public async loadByChurchId(churchId: number) {
+    public async loadByChurchId(churchId: string) {
         return DB.queryOne("SELECT * FROM settings WHERE churchId=? LIMIT 1;", [churchId]);
     }
 
     public save(setting: Setting) {
-        if (setting.id > 0) return this.update(setting); else return this.create(setting);
+        if (UniqueIdHelper.isMissing(setting.id)) return this.create(setting); else return this.update(setting);
     }
 
     public async create(setting: Setting) {

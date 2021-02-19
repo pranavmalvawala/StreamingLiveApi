@@ -8,7 +8,7 @@ import { Link } from "../apiBase/models"
 @controller("/churches")
 export class ChurchController extends StreamingLiveBaseController {
 
-    async validateInit(churchId: number) {
+    async validateInit(churchId: string) {
         const errors = [];
         const setting = await this.repositories.setting.loadByChurchId(churchId);
         if (setting !== null) errors.push("Church already initialized");

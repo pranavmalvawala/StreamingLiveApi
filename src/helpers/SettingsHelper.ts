@@ -8,7 +8,7 @@ import { Link } from "../apiBase/models";
 
 export class SettingsHelper {
 
-    public static async publish(churchId: number, repositories: Repositories, baseRepositories: BaseRepsoitories) {
+    public static async publish(churchId: string, repositories: Repositories, baseRepositories: BaseRepsoitories) {
         let settings: Setting = null;
         let tabs: Link[] = null;
         let links: Link[] = null;

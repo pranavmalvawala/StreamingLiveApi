@@ -3,3 +3,4 @@ export { Utils } from "./Utils";
 export { ConfigHelper } from "./ConfigHelper";
 export { SettingsHelper } from "./SettingsHelper";
 export { SubDomainHelper } from "./SubDomainHelper";
+export { UniqueIdHelper } from "../apiBase/helpers";

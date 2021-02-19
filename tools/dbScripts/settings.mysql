@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS `settings`;
 
 CREATE TABLE `settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `churchId` int(11) DEFAULT NULL,
+  `id` char(11) NOT NULL,
+  `churchId` char(11) DEFAULT NULL,
   `homePageUrl` varchar(255) DEFAULT NULL,
   `logoUrl` TEXT DEFAULT NULL,
   `primaryColor` varchar(45) DEFAULT NULL,
