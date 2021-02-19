@@ -5,7 +5,7 @@ export class SubDomainHelper {
     static subDomains: any = {};
     static churchIds: any = {};
 
-    public static async get(churchId: number) {
+    public static async get(churchId: string) {
         let result = "";
         if (this.subDomains[churchId] !== undefined) result = this.subDomains[churchId];
         else {
@@ -22,13 +22,13 @@ export class SubDomainHelper {
     }
 
     public static async getId(subDomain: string) {
-        let result = 0;
+        let result = "";
         if (this.churchIds[subDomain] !== undefined) result = this.churchIds[subDomain];
         else {
             const apiUrl = process.env.ACCESS_API;
             const url = apiUrl + "/churches/lookup/?subDomain=" + subDomain;
             const json: any = await got.get(url).json();
-            result = parseInt(json.id, 0);
+            result = json.id;
             this.subDomains[result] = subDomain;
             this.churchIds[subDomain] = result;
         }

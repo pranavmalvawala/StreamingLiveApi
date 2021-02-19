@@ -8,7 +8,7 @@ import { PageController as BasePageController } from "../apiBase/controllers";
 export class PageControllerExtended extends BasePageController {
 
     @httpGet("/write/:id")
-    public async writeToDisk(@requestParam("id") id: number, req: express.Request, res: express.Response): Promise<any> {
+    public async writeToDisk(@requestParam("id") id: string, req: express.Request, res: express.Response): Promise<any> {
         return this.actionWrapper(req, res, async (au) => {
             if (process.env.STORAGE_LOCATION !== "S3") return this.denyAccess(["This API is not configured to publish to disk"]);
             else {

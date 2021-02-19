@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `churchId` int(11) DEFAULT NULL,
+  `id` char(11) NOT NULL,
+  `churchId` char(11) DEFAULT NULL,
   `serviceTime` datetime DEFAULT NULL,
   `earlyStart` int(11) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
