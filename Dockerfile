@@ -11,6 +11,6 @@ RUN git submodule init && git submodule update
 
 RUN npm install
 
-CMD npm run initdb && npm run start
+CMD npm run initdb && npm run $ENVIRONMENT
 
 EXPOSE 8200
