@@ -29,7 +29,6 @@ export class SettingsHelper {
         if (process.env.STORAGE_LOCATION === "S3") {
             promises = [];
             promises.push(this.publishData(subDomain, settings, tabs, links, services));
-            promises.push(this.publishCss(subDomain, settings));
             LoggingHelper.getCurrent().info(JSON.stringify(promises));
             await Promise.all(promises);
         }
@@ -44,14 +43,5 @@ export class SettingsHelper {
         const buffer = Buffer.from(JSON.stringify(result), 'utf8');
         return AwsHelper.S3Upload(path, "application/json", buffer)
     }
-
-
-    private static publishCss(subDomain: string, settings: Setting): Promise<any> {
-        const result = ConfigHelper.generateCss(settings);
-        const path = "data/" + subDomain + '/data.css';
-        const buffer = Buffer.from(result, 'utf8');
-        return AwsHelper.S3Upload(path, "text/css", buffer)
-    }
-
 
 }
