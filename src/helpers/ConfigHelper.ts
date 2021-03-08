@@ -3,10 +3,6 @@ import { Link } from "../apiBase/models"
 
 export class ConfigHelper {
 
-    static generateCss = (settings: Setting) => {
-        return ":root { --primaryColor: " + settings.primaryColor + "; --contrastColor: " + settings.contrastColor + "; --headerColor: " + settings.primaryColor + " }"
-    }
-
     static generateJson = (settings: Setting, tabs: Link[], links: Link[], services: Service[]) => {
         const result: any = {};
         result.churchId = settings.churchId;
