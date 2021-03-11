@@ -29,21 +29,4 @@ export class PreviewController extends StreamingLiveBaseController {
             return this.internalServerError(e);
         }
     }
-
-    @httpGet("/css/:key")
-    public async loadCss(@requestParam("key") key: string, req: express.Request, res: express.Response): Promise<any> {
-        try {
-            const churchId = await SubDomainHelper.getId(key);
-            const settings: Setting = await this.repositories.setting.loadByChurchId(churchId);
-            const result = ConfigHelper.generateCss(settings);
-            const resp = new HttpResponseMessage(200);
-            resp.content = new StringContent(result, "text/css");
-            return resp;
-        } catch (e) {
-            this.logger.error(e);
-            return this.internalServerError(e);
-        }
-    }
-
-
 }
