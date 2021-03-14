@@ -34,7 +34,6 @@ export class ChurchController extends StreamingLiveBaseController {
 
             await Promise.all(promises);
 
-            await SettingsHelper.publish(au.churchId, this.repositories, this.baseRepositories);
             return {};
 
         });
