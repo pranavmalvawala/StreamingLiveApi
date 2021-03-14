@@ -38,7 +38,7 @@ export class SettingsHelper {
 
     private static publishData(subDomain: string, settings: Setting, tabs: Link[], links: Link[], services: Service[]): Promise<any> {
         // console.log("publishing");
-        const result = ConfigHelper.generateJson(settings, tabs, links, services);
+        const result = ConfigHelper.generateJson(settings.churchId, tabs, links, services);
         const path = "data/" + subDomain + '/data.json';
         const buffer = Buffer.from(JSON.stringify(result), 'utf8');
         return AwsHelper.S3Upload(path, "application/json", buffer)
