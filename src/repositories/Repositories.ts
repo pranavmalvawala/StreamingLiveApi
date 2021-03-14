@@ -1,8 +1,7 @@
-import { ServiceRepository, SettingRepository } from ".";
+import { ServiceRepository } from ".";
 
 export class Repositories {
     public service: ServiceRepository;
-    public setting: SettingRepository;
 
     private static _current: Repositories = null;
     public static getCurrent = () => {
@@ -12,6 +11,5 @@ export class Repositories {
 
     constructor() {
         this.service = new ServiceRepository();
-        this.setting = new SettingRepository();
     }
 }
