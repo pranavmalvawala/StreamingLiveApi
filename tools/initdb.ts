@@ -12,8 +12,7 @@ const init = async () => {
 
 
   const tables: { title: string, file: string }[] = [
-    { title: "Services", file: "services.mysql" },
-    { title: "Settings", file: "settings.mysql" },
+    { title: "Services", file: "services.mysql" }
   ];
   await initTables("StreamingLive", tables);
 };
