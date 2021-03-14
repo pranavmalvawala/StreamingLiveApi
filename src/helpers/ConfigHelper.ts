@@ -1,11 +1,11 @@
-import { Setting, Service } from "../models";
+import { Service } from "../models";
 import { Link } from "../apiBase/models"
 
 export class ConfigHelper {
 
-    static generateJson = (settings: Setting, tabs: Link[], links: Link[], services: Service[]) => {
+    static generateJson = (churchId: string, tabs: Link[], links: Link[], services: Service[]) => {
         const result: any = {};
-        result.churchId = settings.churchId;
+        result.churchId = churchId;
         result.buttons = [];
         result.tabs = [];
         result.services = [];
