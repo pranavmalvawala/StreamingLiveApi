@@ -1,6 +1,6 @@
 import { controller, httpPost, httpGet, requestParam } from "inversify-express-utils";
 import express from "express";
-import { SettingsHelper, SubDomainHelper, AwsHelper } from "../helpers";
+import { SubDomainHelper, AwsHelper } from "../helpers";
 import { Setting, } from "../models";
 import { StreamingLiveBaseController } from "./StreamingLiveBaseController";
 import { Permissions } from "../helpers/Permissions";
@@ -58,7 +58,6 @@ export class CustomSettingController extends StreamingLiveBaseController {
         return this.actionWrapper(req, res, async (au) => {
             if (process.env.STORAGE_LOCATION !== "S3") return ({ error: "This API is not configured to publish to disk" });
             else {
-                await SettingsHelper.publish(au.churchId, this.repositories, this.baseRepositories);
                 return this.json([], 200);
             }
         });

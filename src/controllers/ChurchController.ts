@@ -1,7 +1,6 @@
 import { controller, httpPost } from "inversify-express-utils";
 import express from "express";
-import { Setting, Service } from "../models";
-import { SettingsHelper } from "../helpers";
+import { Service } from "../models";
 import { StreamingLiveBaseController } from "./StreamingLiveBaseController";
 import { Link } from "../apiBase/models"
 
