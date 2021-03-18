@@ -17,7 +17,7 @@ export class PageControllerExtended extends BasePageController {
                 // const tempBase64 = Buffer.from(wrappedContent, 'binary').toString('base64');
                 const fileId = page?.path?.split('/')[2];
                 const newFile: File = { id: fileId, churchId: au.churchId, type: "text/html", content: wrappedContent }
-                await this.baseRepositories.file.save(newFile).then(file => page.path = "/files/" + file.id);
+                await this.baseRepositories.file.save(newFile).then(file => page.path = "/files/pages/" + file.id);
             }
             return page;
 
