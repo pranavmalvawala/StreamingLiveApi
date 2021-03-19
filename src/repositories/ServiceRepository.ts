@@ -1,6 +1,6 @@
 import { DB } from "../apiBase/db";
 import { Service } from "../models";
-import { UniqueIdHelper } from "../helpers";
+import { UniqueIdHelper, DateTimeHelper } from "../helpers";
 
 export class ServiceRepository {
 
@@ -10,16 +10,18 @@ export class ServiceRepository {
 
     public async create(service: Service) {
         service.id = UniqueIdHelper.shortId();
+        const serviceTime = DateTimeHelper.toMysqlDate(service.serviceTime);
         return DB.query(
             "INSERT INTO services (id, churchId, serviceTime, earlyStart, duration, chatBefore, chatAfter, provider, providerKey, videoUrl, timezoneOffset, recurring, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-            [service.id, service.churchId, service.serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label]
+            [service.id, service.churchId, serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label]
         ).then(() => { return service; });
     }
 
     public async update(service: Service) {
+        const serviceTime = DateTimeHelper.toMysqlDate(service.serviceTime);
         return DB.query(
             "UPDATE services SET serviceTime=?, earlyStart=?, duration=?, chatBefore=?, chatAfter=?, provider=?, providerKey=?, videoUrl=?, timezoneOffset=?, recurring=?, label=? WHERE id=?;",
-            [service.serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label, service.id]
+            [serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label, service.id]
         ).then(() => { return service });
     }
 
