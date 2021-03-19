@@ -37,9 +37,4 @@ export class ServiceRepository {
         return DB.query("SELECT * FROM services WHERE churchId=? ORDER BY serviceTime;", [churchId]);
     }
 
-    public async loadExpired(): Promise<Service[]> {
-        return DB.query("SELECT * FROM services WHERE serviceTime<DATE_ADD(NOW(), INTERVAL -6 HOUR)", []);
-
-    }
-
 }
