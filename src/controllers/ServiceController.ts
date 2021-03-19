@@ -3,6 +3,7 @@ import express from "express";
 import { Service } from "../models";
 import { StreamingLiveBaseController } from "./StreamingLiveBaseController";
 import { Permissions } from "../helpers/Permissions";
+import { DateTimeHelper } from '../helpers'
 
 @controller("/services")
 export class ServiceController extends StreamingLiveBaseController {
@@ -10,9 +11,22 @@ export class ServiceController extends StreamingLiveBaseController {
     public async loadAll(req: express.Request, res: express.Response): Promise<any> {
         return this.actionWrapper(req, res, async (au) => {
             const services = await this.repositories.service.loadAll(au.churchId);
-            services.forEach(s => {
+            const promises: Promise<any>[] = []
+            services.forEach((s, index, allServices) => {
+                // Update service time
+                if (s.serviceTime < DateTimeHelper.subtractHoursFromNow(6)) {
+                    if(!s.recurring) {
+                        promises.push(this.repositories.service.delete(s.id, s.churchId));
+                        allServices.splice(index, 1)
+                    } else {
+                        s.serviceTime.setDate(s.serviceTime.getDate() + 7);
+                        promises.push(this.repositories.service.save(s));
+                    }
+                }
                 s.serviceTime.setMinutes(s.serviceTime.getMinutes() - s.timezoneOffset);
             })
+            await Promise.all(promises);
+
             return services;
         });
     }
