@@ -1,6 +1,6 @@
-import { httpGet, requestParam, controller, httpPost } from "inversify-express-utils";
+import { controller, httpPost } from "inversify-express-utils";
 import express from "express";
-import { SubDomainHelper } from "../helpers"
+import { SubDomainHelper, FileHelper } from "../helpers"
 import { Page, File } from "../apiBase/models";
 import { PageController as BasePageController } from "../apiBase/controllers";
 
@@ -14,10 +14,10 @@ export class PageControllerExtended extends BasePageController {
             if (page.content !== undefined) {
                 const subDomain = await SubDomainHelper.get(au.churchId);
                 const wrappedContent = this.wrapContent(subDomain, page.content);
-                // const tempBase64 = Buffer.from(wrappedContent, 'binary').toString('base64');
-                const fileId = page?.path?.split('/')[2];
-                const newFile: File = { id: fileId, churchId: au.churchId, type: "text/html", content: wrappedContent }
-                await this.baseRepositories.file.save(newFile).then(file => page.path = "/files/pages/" + file.id);
+
+                const buffer = Buffer.from(wrappedContent, "binary");
+                const path = au.churchId + "/streamingLive/pages/" + page.id + ".html";
+                await FileHelper.store(path, "text/html", buffer);
             }
             return page;
 

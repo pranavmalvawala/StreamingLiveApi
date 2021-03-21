@@ -7,7 +7,7 @@ const init = async () => {
   dotenv.config();
   console.log("Connecting");
   Pool.initPool();
-  await DBCreator.init(["Links", "Pages", "Files"]);
+  await DBCreator.init(["Links", "Pages"]);
 
 
 
