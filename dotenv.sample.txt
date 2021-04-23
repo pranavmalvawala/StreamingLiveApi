@@ -15,9 +15,9 @@ JWT_SECRET_KEY=this is a test key that is a sentence
 
 #local
 ACCESS_API=http://localhost:8082
-STORAGE_LOCATION=DB
+FILE_STORE=DB
 
 #staging
 ACCESS_API=https://accessapi.staging.churchapps.org
-STORAGE_LOCATION=S3
+FILE_STORE=S3
 
