@@ -11,29 +11,29 @@ export class ServiceRepository {
     public async create(service: Service) {
         service.id = UniqueIdHelper.shortId();
         const serviceTime = DateTimeHelper.toMysqlDate(service.serviceTime);
-        return DB.query(
-            "INSERT INTO services (id, churchId, serviceTime, earlyStart, duration, chatBefore, chatAfter, provider, providerKey, videoUrl, timezoneOffset, recurring, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-            [service.id, service.churchId, serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label]
-        ).then(() => { return service; });
+        const sql = "INSERT INTO services (id, churchId, serviceTime, earlyStart, duration, chatBefore, chatAfter, provider, providerKey, videoUrl, timezoneOffset, recurring, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        const params = [service.id, service.churchId, serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label];
+        await DB.query(sql, params);
+        return service;
     }
 
     public async update(service: Service) {
         const serviceTime = DateTimeHelper.toMysqlDate(service.serviceTime);
-        return DB.query(
-            "UPDATE services SET serviceTime=?, earlyStart=?, duration=?, chatBefore=?, chatAfter=?, provider=?, providerKey=?, videoUrl=?, timezoneOffset=?, recurring=?, label=? WHERE id=?;",
-            [serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label, service.id]
-        ).then(() => { return service });
+        const sql = "UPDATE services SET serviceTime=?, earlyStart=?, duration=?, chatBefore=?, chatAfter=?, provider=?, providerKey=?, videoUrl=?, timezoneOffset=?, recurring=?, label=? WHERE id=?;";
+        const params = [serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label, service.id];
+        await DB.query(sql, params);
+        return service;
     }
 
-    public async delete(id: string, churchId: string) {
-        DB.query("DELETE FROM services WHERE id=? AND churchId=?;", [id, churchId]);
+    public delete(id: string, churchId: string) {
+        return DB.query("DELETE FROM services WHERE id=? AND churchId=?;", [id, churchId]);
     }
 
-    public async loadById(id: string, churchId: string): Promise<Service> {
+    public loadById(id: string, churchId: string): Promise<Service> {
         return DB.queryOne("SELECT * FROM services WHERE id=? AND churchId=?;", [id]);
     }
 
-    public async loadAll(churchId: string): Promise<Service[]> {
+    public loadAll(churchId: string): Promise<Service[]> {
         return DB.query("SELECT * FROM services WHERE churchId=? ORDER BY serviceTime;", [churchId]);
     }
 
