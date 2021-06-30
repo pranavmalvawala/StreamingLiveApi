@@ -13,6 +13,5 @@ CREATE TABLE `services` (
   `timezoneOffset` int(11) DEFAULT NULL,
   `recurring` tinyint(4) DEFAULT NULL,
   `label` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

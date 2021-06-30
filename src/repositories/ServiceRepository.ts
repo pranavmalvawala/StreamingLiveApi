@@ -5,10 +5,10 @@ import { UniqueIdHelper, DateTimeHelper } from "../helpers";
 export class ServiceRepository {
 
     public save(service: Service) {
-        if (UniqueIdHelper.isMissing(service.id)) return this.create(service); else return this.update(service);
+        return service.id ? this.update(service) : this.create(service);
     }
 
-    public async create(service: Service) {
+    private async create(service: Service) {
         service.id = UniqueIdHelper.shortId();
         const serviceTime = DateTimeHelper.toMysqlDate(service.serviceTime);
         const sql = "INSERT INTO services (id, churchId, serviceTime, earlyStart, duration, chatBefore, chatAfter, provider, providerKey, videoUrl, timezoneOffset, recurring, label) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -17,7 +17,7 @@ export class ServiceRepository {
         return service;
     }
 
-    public async update(service: Service) {
+    private async update(service: Service) {
         const serviceTime = DateTimeHelper.toMysqlDate(service.serviceTime);
         const sql = "UPDATE services SET serviceTime=?, earlyStart=?, duration=?, chatBefore=?, chatAfter=?, provider=?, providerKey=?, videoUrl=?, timezoneOffset=?, recurring=?, label=? WHERE id=?;";
         const params = [serviceTime, service.earlyStart, service.duration, service.chatBefore, service.chatAfter, service.provider, service.providerKey, service.videoUrl, service.timezoneOffset, service.recurring, service.label, service.id];
