@@ -1,0 +1,9 @@
+{
+  "accessApi": "https://accessapi.churchapps.org",
+  "appEnv": "prod",
+  "appName": "StreamingLiveApi",
+  "contentRoot": "https://content.churchapps.org",
+  "fileStore": "S3",
+  "mailSystem": "SES",
+  "s3Bucket": "churchapps-content"
+}

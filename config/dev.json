@@ -1,0 +1,9 @@
+{
+  "accessApi": "http://localhost:8082",
+  "appEnv": "dev",
+  "appName": "StreamingLiveApi",
+  "contentRoot": "http://localhost:3402",
+  "fileStore": "disk",
+  "mailSystem": "SMTP",
+  "s3Bucket": ""
+}

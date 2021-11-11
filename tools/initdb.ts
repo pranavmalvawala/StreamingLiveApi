@@ -1,11 +1,13 @@
 
 import dotenv from "dotenv";
 import { Pool } from "../src/apiBase/pool";
+import { Environment } from "../src/helpers/Environment";
 import { DBCreator } from "../src/apiBase/tools/DBCreator"
 
 const init = async () => {
   dotenv.config();
   console.log("Connecting");
+  Environment.init(process.env.APP_ENV);
   Pool.initPool();
   await DBCreator.init(["Links", "Pages"]);
 

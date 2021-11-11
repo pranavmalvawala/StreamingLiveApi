@@ -1,0 +1,9 @@
+{
+  "accessApi": "https://accessapi.staging.churchapps.org",
+  "appEnv": "staging",
+  "appName": "StreamingLiveApi",
+  "contentRoot": "https://content.staging.churchapps.org",
+  "fileStore": "S3",
+  "mailSystem": "SES",
+  "s3Bucket": "staging-churchapps-content"
+}
