@@ -14,3 +14,12 @@ functions:
    events:
      - http: ANY {proxy+}
      - http: ANY /
+
+
+plugins:
+  - serverless-layers
+  
+custom:
+  serverless-layers:
+    dependenciesPath: ./package.json
+    layersDeploymentBucket: "lcs-layers"
