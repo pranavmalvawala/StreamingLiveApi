@@ -12,9 +12,7 @@ export class SubDomainHelper {
     else {
       const apiUrl = Environment.accessApi;
       const url = apiUrl + "/churches/lookup/?id=" + churchId.toString();
-      console.log(url);
       const json: any = await got.get(url).json();
-      console.log(json);
       result = json.subDomain;
       this.subDomains[churchId] = result;
       this.churchIds[result] = churchId;
@@ -29,9 +27,11 @@ export class SubDomainHelper {
       const apiUrl = Environment.accessApi;
       const url = apiUrl + "/churches/lookup/?subDomain=" + subDomain;
       const json: any = await got.get(url).json();
-      result = json.id;
-      this.subDomains[result] = subDomain;
-      this.churchIds[subDomain] = result;
+      if (json.id) {
+        result = json.id;
+        this.subDomains[result] = subDomain;
+        this.churchIds[subDomain] = result;
+      }
     }
     return result;
   }
