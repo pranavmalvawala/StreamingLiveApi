@@ -1,4 +1,4 @@
-import got from 'got';
+import axios from 'axios'
 import { Environment } from '.';
 
 export class SubDomainHelper {
@@ -12,7 +12,7 @@ export class SubDomainHelper {
     else {
       const apiUrl = Environment.accessApi;
       const url = apiUrl + "/churches/lookup/?id=" + churchId.toString();
-      const json: any = await got.get(url).json();
+      const json: any = await axios.get(url);
       result = json.subDomain;
       this.subDomains[churchId] = result;
       this.churchIds[result] = churchId;
@@ -26,7 +26,7 @@ export class SubDomainHelper {
     else {
       const apiUrl = Environment.accessApi;
       const url = apiUrl + "/churches/lookup/?subDomain=" + subDomain;
-      const json: any = await got.get(url).json();
+      const json: any = await axios.get(url);
       if (json.id) {
         result = json.id;
         this.subDomains[result] = subDomain;
