@@ -6,7 +6,7 @@ on:
 
 jobs:
   sync:
-    name: 'Submodule Sync'
+    name: 'Submodules Sync'
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -38,4 +38,4 @@ jobs:
 
   deploy:
     name: Deploy to staging
-    uses: ./.github/workflows/deploy-staging
+    uses: ./.github/workflows/deploy-staging.yml
