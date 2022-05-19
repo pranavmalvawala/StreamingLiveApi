@@ -36,11 +36,10 @@ jobs:
         git commit -am "Auto updated submodule references" && git push || echo "No changes to commit"
     
     - name: Trigger Deploy
-        env:
-          CI_TOKEN: ${{ secrets.CI_TOKEN }}
-          PARENT_REPO: LiveChurchSolutions/StreamingLiveApi
-          PARENT_BRANCH: main
-          WORKFLOW_ID: 5464912
-        run: |
-          curl -fL --retry 3 -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ env.CI_TOKEN }}" https://api.github.com/repos/${{ env.PARENT_REPO }}/actions/workflows/${{ env.WORKFLOW_ID }}/dispatches -d '{"ref":"${{ env.PARENT_BRANCH }}"}'
-    
+      env:
+        CI_TOKEN: ${{ secrets.CI_TOKEN }}
+        PARENT_REPO: LiveChurchSolutions/StreamingLiveApi
+        PARENT_BRANCH: main
+        WORKFLOW_ID: 5464912
+      run: |
+        curl -fL --retry 3 -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ env.CI_TOKEN }}" https://api.github.com/repos/${{ env.PARENT_REPO }}/actions/workflows/${{ env.WORKFLOW_ID }}/dispatches -d '{"ref":"${{ env.PARENT_BRANCH }}"}'
