@@ -35,5 +35,7 @@ jobs:
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
         git commit -am "Auto updated submodule references" && git push || echo "No changes to commit"
     
-    - name: Deploy
-      uses: ./.github/workflows/deploy-staging.yml
+  deploy:
+    name: 'Deploy Staging'
+    needs: sync
+    uses: LiveChurchSolutions/StreamingLiveApi/.github/workflows/deploy-staging.yml@main
