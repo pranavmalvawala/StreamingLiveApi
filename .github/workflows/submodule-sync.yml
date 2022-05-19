@@ -38,4 +38,4 @@ jobs:
 
   deploy:
     name: Deploy to staging
-    uses: LiveChurchSolutions/StreamingLiveApi/.github/workflows/deploy-staging.yml@main
+    uses: ./.github/workflows/deploy-staging.yml
