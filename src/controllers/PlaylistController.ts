@@ -44,12 +44,12 @@ export class PlaylistController extends StreamingLiveBaseController {
 
         for (const p of playlists) {
           let base64Photo = "";
-          if (p.thumbnail !== undefined && p.thumbnail.startsWith("data:image/png;base64,")) {
+          if (p.thumbnail && p.thumbnail.startsWith("data:image/png;base64,")) {
             base64Photo = p.thumbnail;
             p.thumbnail = "";
           }
           if (p.churchId === au.churchId) promises.push(
-            this.repositories.playlist.save(p).then(async (playlist) => {
+            this.repositories.playlist.save(p).then(async (playlist: Playlist) => {
               if (base64Photo) {
                 playlist.thumbnail = base64Photo;
                 await this.savePhoto(au.churchId, playlist);

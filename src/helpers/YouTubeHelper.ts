@@ -4,7 +4,7 @@ import { Environment } from '.';
 export class YouTubeHelper {
 
   public static async getSermon(sermonId: string) {
-    const url = `https://www.googleapis.com/youtube/v3/sermons?part=contentDetails%2C+snippet&id=${sermonId}&key=${Environment.youTubeApiKey}`;
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=contentDetails%2C+snippet&id=${sermonId}&key=${Environment.youTubeApiKey}`;
     const result = { title: "", thumbnail: "", description: "", duration: 0 }
     const json: any = (await axios.get(url)).data;
     if (json.items?.length > 0) {

@@ -49,7 +49,7 @@ export class SermonController extends StreamingLiveBaseController {
         const promises: Promise<Sermon>[] = [];
         for (const s of sermons) {
           let base64Photo = "";
-          if (s.thumbnail !== undefined && s.thumbnail.startsWith("data:image/png;base64,")) {
+          if (s.thumbnail && s.thumbnail.startsWith("data:image/png;base64,")) {
             base64Photo = s.thumbnail;
             s.thumbnail = "";
           }
