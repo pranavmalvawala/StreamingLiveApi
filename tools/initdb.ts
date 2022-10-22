@@ -7,14 +7,16 @@ import { DBCreator } from "../src/apiBase/tools/DBCreator"
 const init = async () => {
   dotenv.config();
   console.log("Connecting");
-  Environment.init(process.env.APP_ENV);
+  Environment.init(process.env.APP_ENV as string);
   Pool.initPool();
   await DBCreator.init(["Links", "Pages"]);
 
 
 
   const tables: { title: string, file: string }[] = [
-    { title: "Services", file: "services.mysql" }
+    { title: "Services", file: "services.mysql" },
+    { title: "Playlists", file: "playlists.mysql" },
+    { title: "Sermons", file: "sermons.mysql" },
   ];
   await initTables("StreamingLive", tables);
 };

@@ -16,7 +16,7 @@ export const init = async () => {
 
   const configFunction = (expApp: express.Application) => {
     expApp.use(bodyParser.urlencoded({ extended: true }));
-    expApp.use(bodyParser.json());
+    expApp.use(bodyParser.json({ limit: "1mb" }));
     expApp.use(cors());
   };
 

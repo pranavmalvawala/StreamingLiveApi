@@ -6,6 +6,7 @@ import { EnvironmentBase } from "../apiBase";
 export class Environment extends EnvironmentBase {
 
   static accessApi: string;
+  static youTubeApiKey: string;
 
   static init(environment: string) {
     let file = "dev.json";
@@ -20,6 +21,7 @@ export class Environment extends EnvironmentBase {
     const data = JSON.parse(json);
     this.populateBase(data);
     this.accessApi = data.accessApi;
+    this.youTubeApiKey = process.env.YOUTUBE_API_KEY;
   }
 
 }

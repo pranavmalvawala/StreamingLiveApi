@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `services`;
 CREATE TABLE `services` (
-  `id` char(11) NOT NULL,
-  `churchId` char(11) DEFAULT NULL,
+  `id` char(11) CHARACTER SET latin1 NOT NULL,
+  `churchId` char(11) CHARACTER SET latin1 DEFAULT NULL,
   `serviceTime` datetime DEFAULT NULL,
   `earlyStart` int(11) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
@@ -13,5 +13,7 @@ CREATE TABLE `services` (
   `timezoneOffset` int(11) DEFAULT NULL,
   `recurring` tinyint(4) DEFAULT NULL,
   `label` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `sermonId` char(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
