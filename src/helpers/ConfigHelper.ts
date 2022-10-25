@@ -29,6 +29,7 @@ export class ConfigHelper {
         chatAfter: ConfigHelper.formatTime(s.chatAfter),
         provider: s.provider,
         providerKey: s.providerKey,
+        id: s.id,
         sermon: this.getSermon(s.sermonId, sermons)
       });
     });
